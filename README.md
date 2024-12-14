@@ -1,5 +1,5 @@
 
-# Aplikasi CRUD dengan Prisma dan PostgreSQL
+# Aplikasi CRUD
 
 Proyek ini adalah aplikasi CRUD (Create, Read, Update, Delete) yang dibangun dengan database PostgreSQL menggunakan Prisma sebagai ORM dan backend Express. Frontend dibuat dengan HTML, CSS, dan JavaScript untuk berinteraksi dengan backend.
 
