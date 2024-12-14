@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  backend:
+    container_name: backend
+    image: backend
+    build:
+      context: ./backend
+      dockerfile: backend.dockerfile
+    ports:
+      - 4000:4000
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres?schema=public
+  db:
+    container_name: db
+    image: postgres:12
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - 5432:5432  
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: frontend.dockerfile
+    ports:
+      - 3000:80 # Mengarahkan port 80 di container ke port 3000 host
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro # Menggunakan Nginx untuk hosting frontend
+    depends_on:
+      - backend
+volumes:
+  pgdata: {}
