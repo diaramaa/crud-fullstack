@@ -33,24 +33,27 @@ jobs:
           docker-compose -f compose.yaml up -d
           echo "Waiting for services to start..."
           sleep 15 # Beri waktu layanan untuk siap
+          echo "Testing backend service..."
+          curl --retry 5 --retry-delay 5 --retry-connrefused http://127.0.0.1:4000
+          echo "backend is accessible!"
           echo "Testing frontend service..."
           curl --retry 5 --retry-delay 5 --retry-connrefused http://127.0.0.1:3000
           echo "Frontend is accessible!"
           docker-compose -f compose.yaml down
           
       - name: Debugging Logs
-        run: docker-compose -f compose.yaml logs backend
+        run: docker-compose -f compose.yaml logs
 
       - name: Debug Network
         run: docker network ls
 
       - name: Build and push
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: ./compose.yaml
-          push: true
-          tags: diarama13/crud-fullstack-cicd:latest
+        run: |
+          # Build dan tag image
+          docker-compose -f docker-compose.yaml build
+          
+          # Push image ke Docker Hub
+          docker-compose -f docker-compose.yaml push
 
       # - name: Deploy to Server
       #   run: |
