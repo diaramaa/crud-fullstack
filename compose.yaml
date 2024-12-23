@@ -1,9 +1,9 @@
-version: 3.9
+version: '3.9'
 
 services:
   backend:
     container_name: backend
-    image: backend
+    image: diarama13/crud-backend:latest  # Ganti dengan username dan nama repositori di Docker Hub Anda
     build:
       context: ./backend
       dockerfile: backend.dockerfile
@@ -11,6 +11,7 @@ services:
       - 4000:4000
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres?schema=public
+
   db:
     container_name: db
     image: postgres:12
@@ -23,16 +24,19 @@ services:
       - 5432:5432  
     volumes:
       - pgdata:/var/lib/postgresql/data
+
   frontend:
     container_name: frontend
+    image: diarama13/crud-frontend:latest  # Ganti dengan username dan nama repositori di Docker Hub Anda
     build:
       context: ./frontend
       dockerfile: frontend.dockerfile
     ports:
-      - 3000:80 # Mengarahkan port 80 di container ke port 3000 host
+      - 3000:80
     volumes:
-      - ./frontend:/usr/share/nginx/html:ro # Menggunakan Nginx untuk hosting frontend
+      - ./frontend:/usr/share/nginx/html:ro
     depends_on:
       - backend
+
 volumes:
   pgdata: {}
