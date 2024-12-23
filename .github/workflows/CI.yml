@@ -47,10 +47,10 @@ jobs:
       - name: Build and push
         run: |
           # Build dan tag image
-          docker-compose -f docker-compose.yaml build
+          docker-compose -f compose.yaml build
           
           # Push image ke Docker Hub
-          docker-compose -f docker-compose.yaml push
+          docker-compose -f compose.yaml push
 
       # - name: Deploy to Server
       #   run: |
