@@ -3,7 +3,7 @@ version: '3.9'
 services:
   backend:
     container_name: backend
-    image: diarama13/crud-backend:latest  # Ganti dengan username dan nama repositori di Docker Hub Anda
+    image: diarama13/crud-fullstack-cicd:latest  # Ganti dengan username dan nama repositori di Docker Hub Anda
     build:
       context: ./backend
       dockerfile: backend.dockerfile
@@ -27,7 +27,7 @@ services:
 
   frontend:
     container_name: frontend
-    image: diarama13/crud-frontend:latest  # Ganti dengan username dan nama repositori di Docker Hub Anda
+    image: diarama13/crud-fullstack-cicd:latest  # Ganti dengan username dan nama repositori di Docker Hub Anda
     build:
       context: ./frontend
       dockerfile: frontend.dockerfile
